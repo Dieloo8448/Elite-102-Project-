@@ -1,9 +1,9 @@
 import tkinter as tk
 import mysql.connector
 
+
 # Connect to the database
-db = mysql.connector.connect(
-    host="localhost",
+bank = mysql.connector.connect(
     first_name="first name",
     last_name="last name",
     dob="date of birth",
@@ -12,14 +12,8 @@ db = mysql.connector.connect(
     username="username",
     password="password",
     balance="balance",
-    database="RBCFU Bank"
 )
-c = db.cursor()
-
-c.execute("SHOW TABLES")
- 
-for x in c:
-  print(x)
+c = bank.cursor()
 
 def create_user():
     # Get the values from the input fields
@@ -35,7 +29,7 @@ def create_user():
     # Insert the values into the database
     c.execute("INSERT INTO users (first_name, last_name, dob, phone, address, username, password,balance) VALUES (?, ?, ?, ?, ?, ?, ?)",
               (first_name, last_name, dob, phone, address, username, password,balance))
-    db.commit()
+    bank.commit()
 
     # Clear the input fields
     entry_first_name.delete(0, tk.END)
@@ -144,6 +138,14 @@ def check_account_balance(id: int) -> int:
     val = (username, password)
     c.execute(sql, val)
     result = c.fetchone()
+    
+    if result:
+      balance = result[0]
+      print("Your account balance is:", balance)
+    else:
+      print("Invalid username or password.")
+      
+      bank.close()
     
     if result:
       balance = result[0]
