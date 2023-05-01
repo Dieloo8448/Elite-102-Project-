@@ -44,7 +44,7 @@ def create_user():
 # Create the UI
 root = tk.Tk()
 root['background']='#FFFFFF'
-root.title("Create User")
+root.title("RBFCU Bank")
 
 # Frames
 frame_personal = tk.LabelFrame(root, text="Personal Information", padx=12, pady=12,fg='black', bg='white')
